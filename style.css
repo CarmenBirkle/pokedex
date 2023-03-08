@@ -1,0 +1,18 @@
+body {
+    margin:0;
+}
+
+#pokedex {
+min-height: 50vh;
+background-color: #fc7779;
+color: white;
+display: flex;
+}
+
+#info-container{
+    background-color: rebeccapurple;
+    margin-top: -40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    min-height: 100px;
+}
