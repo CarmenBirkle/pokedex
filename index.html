@@ -5,16 +5,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
 </head>
 <body onload="loadPokemon()">
-    <div id="pokedex">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js" integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- TestBereich -->
+
+    <!-- NavBar -->
+
+    
+<div class="header">
+    <img src="./img/pokedex.png" alt="Pokedex">
+    <p>Catch all Pokemons</p>
+  </div>
+  
+  <div id="navbar">
+    <div class="nav-left">
+        <img src="./img/favicon.png" alt="">
+        <p>Pokedex </p> 
+    </div>
+   
+    <div class="form-area">
+        <form> 
+            <input class="input"> <button class="search-btn">  Search by Name </button>
+        </form> 
+        <form> 
+            <input class="input"> <button class="search-btn">  Search by ID </button>
+        </form> 
+    </div>
+  </div>
+  
+  <div class="content">
+
+ 
+
+    <div class="card">
+        <div class="card-top">
+            <h2>#012</h2>
+            <img src="./img/pokeball.png" alt="pokeball" style="width:100%">
+        </div>
+
+        <div class="container">
+            <h4><b>John Doe</b></h4>
+            <p>Architect & Engineer</p>
+            <p class="p-text">Height: <b> 0,70 cm</b></p>
+            <p class="p-text">Weight:<b> 6,9 kg</b></p>
+            <p class="p-text">Abilities: <b> Overgrow, Chlorophyl</b></p>
+            <p class="p-text">Gender <b> Seed</b></p> 
+            <p class="p-text">Egg Groups <b> Seed</b></p> 
+            <p class="p-text">Egg Cycle <b> Seed</b></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h2>#013</h2>
+            <img src="./img/pokeball.png" alt="pokeball" style="width:100%">
+        </div>
+
+        <div class="container">
+            <h4><b>John Doe</b></h4>
+            <p>Architect & Engineer</p>
+            <div>
+        <canvas id="myChart"></canvas>
+      </div>
+            <p class="p-text">Height: <b> 0,70 cm</b></p>
+            <p class="p-text">Weight:<b> 6,9 kg</b></p>
+            <p class="p-text">Abilities: <b> Overgrow, Chlorophyl</b></p>
+            <p class="p-text">Gender <b> Seed</b></p> 
+            <p class="p-text">Egg Groups <b> Seed</b></p> 
+            <p class="p-text">Egg Cycle <b> Seed</b></p>
+        </div>
+</div>
+
+
+    </div>
+
+      <!-- NavBar end  -->
+      
+
+      <!-- <div>
+        <canvas id="myChart"></canvas>
+      </div> -->
+      
+     
+      
+      
+
+    <div id="pokemon-container"></div>
+    <!-- <div id="pokedex">
         <h1 id="pokemonName"> Name</h1>
        
-    </div>
-    <div id="info-container">
+    </div> -->
+    <!-- <div id="info-container">
         <img id="pokemonImage" src="" alt="">
-    </div>
+    </div> -->
+    
+
+    
+    <script src="./template.js"></script>
+    <script src="./app.js"></script>
 </body>
-<script src="./app.js"></script>
+
 </html>

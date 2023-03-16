@@ -1,0 +1,19 @@
+background.jpg von https://pixabay.com/de/illustrations/pokemon-planet-smartphone-weltraum-1624022/#:~:text=Pixabay%20License,Kein%20Bildnachweis%20n%C3%B6tig 
+Pixabay Lizenz - kein Bildnachweis nötig
+
+pokeball
+
+<div> Icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev"> Nikita Golubev </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+favicon:
+<div> Icons made by <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+bug:
+<div> Icons made by <a href="https://www.flaticon.com/authors/twentyfour" title="twentyfour"> twentyfour </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+electric:
+<div> Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons"> Smashicons </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+pokemon vector:
+
+<a href="https://www.vecteezy.com/free-vector/pokemon-type">Pokemon Type Vectors by Vecteezy</a>
