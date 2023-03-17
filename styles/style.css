@@ -191,7 +191,7 @@ p{
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 220px;
+    min-height: 243px;
   }
 
   .flex {
@@ -336,6 +336,12 @@ border: 3px solid var(--dark-gray);
     width: 30px;
    
 }
+/* hier svg löschen wenn umgestellt */
+.poke-type > img{
+  height: 30px;
+  width: 30px;
+ 
+}
 
 .pokemon-img{
     position: absolute;
@@ -385,11 +391,17 @@ border: 3px solid var(--dark-gray);
   transform: translateY(-50%);
 }
 
+.bar-label[style="text-align:right;"] {
+  right: 8px;
+  left: auto;
+}
+
 
 @keyframes fill-bar {
   from {width: 0;}
   to {width: 80%;}
-}
+} 
+
 
 #about{
   margin-top:8px;
@@ -400,5 +412,70 @@ border: 3px solid var(--dark-gray);
 }
 
 
+/* ab hier innere Carte */
 
+.pokemon-img-detail{
+  position: absolute;
+  width: 221px;
+  top: 0;
+}
+
+.pokemon-name-detail{
+  font-size: x-large;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position:absolute;
+  top: 214px;
+  left: 141px;
+}
+
+.type-container-detail{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.type-container-detail > p {
+  font-size: small;
+}
+
+.type-detail{
+  position:absolute;
+  left:27px;
+  top:149px;
+
+  /* war left 27 und top 81 */
+}
+
+.poke-type-detail> svg{
+  height: 20px;
+  width: 20px;
+ 
+}
+/* svg löschen wenn umgestellt */
+
+.poke-type-detail> img{
+  height: 20px;
+  width: 20px;
+ 
+}
+
+.poke-type-detail{
+  background-color: #83c301;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  -webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
+  -moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+  box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+
+  border: 3px solid var(--dark-gray);
+
+}
 

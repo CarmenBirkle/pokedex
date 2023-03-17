@@ -50,10 +50,13 @@ async function getSingelPokemonData(){
   let responseToJson = await singlePokemonResponse.json();
   console.log('singel Response', responseToJson);
   console.log('name', responseToJson['name'],'id', responseToJson['id'], 'weight', responseToJson['weight'],
-  'bild', responseToJson['sprites']['front_shiny'], 'gender-rate:', responseToJson['gender_rate']
+  'bild', responseToJson['sprites']['front_shiny']
   );
-  console.log(responseToJson.gender_rate);
-
+  // console.log(responseToJson.gender_rate);
+  responseToJson['stats'].forEach(element => {
+    console.log('stat-name:', element.stat.name, 'base-stat:', element.base_stat);
+  
+});
 }
 
 window.addEventListener('scroll', () => {
