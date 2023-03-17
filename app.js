@@ -57,6 +57,9 @@ window.addEventListener('scroll', () => {
 });
 
 
+
+
+
         const ctx = document.getElementById('myChart');
         const labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
         new Chart(ctx, 
@@ -67,7 +70,8 @@ window.addEventListener('scroll', () => {
             datasets: [{
 
                 axis: 'y',
-                label: 'My First Dataset',
+                label: 'Pokemon State',
+                borderRadius: 5,
                 data: [65, 59, 80, 81, 56, 10],
                 fill: false,
                 backgroundColor: [
@@ -94,7 +98,13 @@ window.addEventListener('scroll', () => {
             }]
           },
           options: {
+            responsive: true,
             indexAxis: 'y',
+            plugins: {
+                legend: {
+                  display: false
+                }
+              },
             scales: {
               y: {
                 beginAtZero: true
@@ -106,4 +116,4 @@ window.addEventListener('scroll', () => {
         );
 
 
-       
+ 

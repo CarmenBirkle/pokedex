@@ -17,6 +17,13 @@ body {
     margin:0;
     /* background-color: var(--claucous); */
     color: var(--cold-white);
+    font-family: "roboto", sans-serif;
+}
+
+h2{
+    position: absolute;
+    top: 5px;
+    left: 8px; 
 }
 
 .header {
@@ -31,6 +38,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1;
   }
   
   #navbar a {
@@ -131,6 +139,11 @@ body {
     background-color: var(--dark-gray);
     /* margin: 10px; */
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+   
   }
   
   /* On mouse-over, add a deeper shadow */
@@ -140,21 +153,25 @@ body {
 
   .card-top{
     height: 250px;
+    width: 300px;
     display: flex;
-    justify-content: end;
+    justify-content: end; 
     /* align-items: flex-end; */
+    position: relative;
   }
 
-  .card-top > img {
+  .background-img {
     opacity: 0.05;
     width: 185px !important;
     height: fit-content;
     margin: 10px;
+    position: absolute;
+    right: 2px;
+    top: -7px;
   }
   
   /* Add some padding inside the card container */
   .container {
-    padding: 2px 16px;
     margin-top: -40px;
     padding-top: 40px;
     border-top-left-radius: 40px;
@@ -162,6 +179,16 @@ body {
     background-color: var(--berkeley-blue);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
   }
   
 
@@ -178,6 +205,8 @@ body {
   .content {
     margin: 0px 32px;
   }
+  
+
 
 
 
@@ -212,7 +241,8 @@ display: flex;
 
 .card{
     width: 300px;
-   border-radius: 10px;
+     border-radius: 10px;
+     
 }
 
 .card-img-area{
@@ -248,4 +278,44 @@ display: flex;
 
 #card-area{
     margin-top: 70px;
+}
+
+.poke-type{
+  background-color: greenyellow;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* -webkit-box-shadow:0px 0px 8px 10px rgba(250,250,250,0.41);
+  -moz-box-shadow: 0px 0px 8px 10px rgba(250,250,250,0.41);
+  box-shadow: 0px 0px 8px 10px rgba(250,250,250,0.41); */
+
+  /* -webkit-box-shadow:0px 0px 8px 5px rgba(250,250,250,0.88);
+-moz-box-shadow: 0px 0px 8px 5px rgba(250,250,250,0.88);
+box-shadow: 0px 0px 8px 5px rgba(250,250,250,0.88); */
+
+-webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
+-moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+
+}
+
+.poke-type > svg{
+    height: 30px;
+    width: 30px;
+   
+}
+
+.pokemon-img{
+    position: absolute;
+    width: 280px;
+    top: 0;
+}
+
+.pokemon-name{
+    font-size: x-large;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
