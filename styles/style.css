@@ -151,6 +151,7 @@ p{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
    
   }
   
@@ -391,6 +392,10 @@ border: 3px solid var(--dark-gray);
   transform: translateY(-50%);
 }
 
+.bar-label > b{
+  margin-right: 6px;
+}
+
 .bar-label[style="text-align:right;"] {
   right: 8px;
   left: auto;
@@ -411,8 +416,59 @@ border: 3px solid var(--dark-gray);
   background-color: #83c301;
 }
 
+.d-none{
+  display: none;
+}
+
 
 /* ab hier innere Carte */
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--claucous);
+  z-index: 2; 
+
+}
+
+.card-detail{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* font-size: 50px; */
+  /* color: white; */
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+.close{
+  width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer; 
+}
+
+.back{
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  cursor: pointer;
+}
+
+
+.forward{
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  cursor: pointer;
+}
 
 .pokemon-img-detail{
   position: absolute;
@@ -443,8 +499,8 @@ border: 3px solid var(--dark-gray);
 
 .type-detail{
   position:absolute;
-  left:27px;
-  top:149px;
+  left:29px;
+  top:77px;
 
   /* war left 27 und top 81 */
 }

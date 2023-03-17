@@ -75,64 +75,78 @@ window.addEventListener('scroll', () => {
     }
 });
 
+function openCard(){
+  document.getElementById('overlay').classList.remove("d-none")
+  document.getElementById('main-content').classList.add("d-none");
+  document.getElementById('header').classList.add("d-none");
+}
+
+function closeByButton(){
+  document.getElementById('overlay').classList.add("d-none");
+  document.getElementById('main-content').classList.remove("d-none");
+  document.getElementById('header').classList.remove("d-none");
+}
 
 
 
 
-        const ctx = document.getElementById('myChart');
-        const labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
-        new Chart(ctx, 
-            {
-          type: 'bar',
-          data: {
-            labels:labels,
-            datasets: [{
 
-                axis: 'y',
-                label: 'Pokemon State',
-                borderRadius: 5,
-                data: [65, 59, 80, 81, 56, 10],
-                fill: false,
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(255, 159, 64)',
-                'rgb(255, 205, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-                'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
+
+
+        // const ctx = document.getElementById('myChart');
+        // const labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+        // new Chart(ctx, 
+        //     {
+        //   type: 'bar',
+        //   data: {
+        //     labels:labels,
+        //     datasets: [{
+
+        //         axis: 'y',
+        //         label: 'Pokemon State',
+        //         borderRadius: 5,
+        //         data: [65, 59, 80, 81, 56, 10],
+        //         fill: false,
+        //         backgroundColor: [
+        //         'rgba(255, 99, 132, 0.2)',
+        //         'rgba(255, 159, 64, 0.2)',
+        //         'rgba(255, 205, 86, 0.2)',
+        //         'rgba(75, 192, 192, 0.2)',
+        //         'rgba(54, 162, 235, 0.2)',
+        //         'rgba(153, 102, 255, 0.2)',
+        //         'rgba(201, 203, 207, 0.2)'
+        //         ],
+        //         borderColor: [
+        //         'rgb(255, 99, 132)',
+        //         'rgb(255, 159, 64)',
+        //         'rgb(255, 205, 86)',
+        //         'rgb(75, 192, 192)',
+        //         'rgb(54, 162, 235)',
+        //         'rgb(153, 102, 255)',
+        //         'rgb(201, 203, 207)'
+        //         ],
+        //         borderWidth: 1
 
               
-            }]
-          },
-          options: {
-            responsive: true,
-            indexAxis: 'y',
-            plugins: {
-                legend: {
-                  display: false
-                }
-              },
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        }
+        //     }]
+        //   },
+        //   options: {
+        //     responsive: true,
+        //     indexAxis: 'y',
+        //     plugins: {
+        //         legend: {
+        //           display: false
+        //         }
+        //       },
+        //     scales: {
+        //       y: {
+        //         beginAtZero: true
+        //       }
+        //     }
+        //   }
+        // }
         
-        );
+        // );
 
 
  
