@@ -55,9 +55,37 @@ async function getSingelPokemonData(){
   // console.log(responseToJson.gender_rate);
   responseToJson['stats'].forEach(element => {
     console.log('stat-name:', element.stat.name, 'base-stat:', element.base_stat);
-  
 });
+
+    responseToJson['types'].forEach(element =>{
+      console.log('type ist:', element.type.name);
+      
+    });
+
+
 }
+
+// JavaScript-Code
+
+
+// SVG-Dateien und Zuordnungen definieren
+// API-Wert auslesen (hier als Beispiel ein String "type2")
+const typeValue = "type2";
+
+// SVG-Datei aus dem Array suchen
+const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
+
+// SVG-Datei in das HTML-Element einfügen
+const svgContainer = document.getElementById("img-container"); // hier noch die entsprechende id mit übergeben
+if (svgFileObj) {
+  svgContainer.innerHTML = `<img src="${svgFileObj.file}">`;
+} else {
+  svgContainer.innerHTML = "Keine passende SVG-Datei gefunden.";
+}
+
+
+
+// window-functions
 
 window.addEventListener('scroll', () => {
     // Wenn das Ende des Dokuments erreicht wurde

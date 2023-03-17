@@ -1,0 +1,20 @@
+const typeAllocation = [
+    { value: "bug", file: "./img/pokemon-icons/bug.svg", color: "#92bc2c" },
+    { value: "dark", file: "./img/pokemon-icons/dark.svg", color: "#595762" },
+    { value: "dragon", file: "./img/pokemon-icons/dragon.svg", color: "#0C69C7" },
+    { value: "electric", file: "./img/pokemon-icons/electric.svg", color: "#F2D94E" },
+    { value: "fairy", file: "./img/pokemon-icons/fairy.svg", color: "#EF90E5" },
+    { value: "fighting", file: "./img/pokemon-icons/fighting.svg", color: "#D3425F" },
+    { value: "fire", file: "./img/pokemon-icons/fire.svg", color: "#FBA54C" },
+    { value: "flying", file: "./img/pokemon-icons/flying.svg", color: "#A1BBEC" },
+    { value: "ghost", file: "./img/pokemon-icons/ghost.svg", color: "#5F6DBC" },
+    { value: "grass", file: "./img/pokemon-icons/grass.svg", color: "#60BD58" },
+    { value: "ground", file: "./img/pokemon-icons/ground.svg", color: "#D97C4C" },
+    { value: "ice", file: "./img/pokemon-icons/ice.svg", color: "#76D0C1" },
+    { value: "normal", file: "./img/pokemon-icons/normal.svg", color: "#9FA29F" },
+    { value: "poison", file: "./img/pokemon-icons/poison.svg", color: "#B764CF" },
+    { value: "psychic", file: "./img/pokemon-icons/psychic.svg", color: "#EFFDFF" },
+    { value: "rock", file: "./img/pokemon-icons/rock.svg", color: "#C9BB8A" },
+    { value: "steel", file: "./img/pokemon-icons/steel.svg", color: "#E4F4F7" },
+    { value: "water", file: "./img/pokemon-icons/water.svg", color: "##ECFBFE" }
+  ];
