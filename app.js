@@ -3,6 +3,7 @@ let navbar = document.getElementById("navbar");
 let sticky = navbar.offsetTop;
 let currentPokemons = [];
 let response;
+let singlePokemonResponse;
 let offset = 0;
 const limit = 20;
 
@@ -36,8 +37,23 @@ function renderPokemoninfo(responseToJson){
     for (let i = 0; i < results.length; i++) {
     const pokemon = results[i];
     console.log(pokemon['name']); // kann raus wenns funzt
+    console.log(pokemon['url']); // kann raus wenns funzt
     container.innerHTML += pokemonCard(pokemon);
+    getSingelPokemonData();
     }    
+}
+
+async function getSingelPokemonData(){
+  // wenn daten vorhanden , dann jeweils das i. te Element von pokemon-url hier übergeben aus funktion oben drüber
+  let singelURL = 'https://pokeapi.co/api/v2/pokemon/11/'
+  singlePokemonResponse = await fetch(singelURL);
+  let responseToJson = await singlePokemonResponse.json();
+  console.log('singel Response', responseToJson);
+  console.log('name', responseToJson['name'],'id', responseToJson['id'], 'weight', responseToJson['weight'],
+  'bild', responseToJson['sprites']['front_shiny'], 'gender-rate:', responseToJson['gender_rate']
+  );
+  console.log(responseToJson.gender_rate);
+
 }
 
 window.addEventListener('scroll', () => {
