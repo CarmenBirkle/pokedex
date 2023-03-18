@@ -20,79 +20,60 @@ function stickyNavbar() {
 }
 
 
-
-
 async function loadPokemon(){
-   
+    // let url = 'https://pokeapi.co/api/v2/pokemon/charmander';
     let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     response = await fetch(url);
     let responseToJson = await response.json();
-    console.log('aktuelles response', responseToJson); // kann raus wenns funzt
+    console.log('aktuelles response', responseToJson); // kann raus wenns passt
     renderPokemoninfo(responseToJson); 
 }
 
 function renderPokemoninfo(responseToJson){
+    // let container = document.getElementById('pokemon-container')
+    let container = document.getElementById('main-content')
+    container.innerHTML = '';
     let results = responseToJson['results']
+
     for (let i = 0; i < results.length; i++) {
     const pokemon = results[i];
     console.log(pokemon['name']); // kann raus wenns funzt
     console.log(pokemon['url']); // kann raus wenns funzt
+    container.innerHTML += pokemonCard(pokemon);
     getSingelPokemonData(pokemon['url']);
     }    
 }
 
 async function getSingelPokemonData(url){
   // wenn daten vorhanden , dann jeweils das i. te Element von pokemon-url hier übergeben aus funktion oben drüber
+  // let singelURL = 'https://pokeapi.co/api/v2/pokemon/11/'
   let singelURL = url;
-  let container = document.getElementById('main-content')
-  container.innerHTML = '';
-
   singlePokemonResponse = await fetch(singelURL);
   let responseToJson = await singlePokemonResponse.json();
-  // console.log('singel Response', responseToJson);
-  // console.log('name', responseToJson['name'],'id', responseToJson['id'], 'weight', responseToJson['weight'],
-  // 'bild', responseToJson['sprites']['front_shiny']
-  // );
-
-  container.innerHTML += pokemonCard(responseToJson);
+  console.log('singel Response', responseToJson);
+  console.log('name', responseToJson['name'],'id', responseToJson['id'], 'weight', responseToJson['weight'],
+  'bild', responseToJson['sprites']['front_shiny']
+  );
   // console.log(responseToJson.gender_rate);
-  getType(responseToJson);
-  renderStats(responseToJson);
-
-}
-
-// ermittelt den Type und ruft dann für jeden Typ den Vergleich getTypeAllocation auf
-function getType(responseToJson){
-  responseToJson['types'].forEach(element =>{
-    console.log('type ist:', element.type.name);
-    console.log('gehört zu pokemon:', responseToJson['id']) // kann raus wenn es funktioniert
-    const typeValue = element.type.name;
-    getTypeAllocation(responseToJson['id'], typeValue);
-
-  });
-}
-
-//holt die einzelnen Statuswerte - diese muss ich noch in die Karte bringen
-function renderStats(responseToJson){  
   responseToJson['stats'].forEach(element => {
-  console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
-
+    console.log('stat-name:', element.stat.name, 'base-stat:', element.base_stat);
 });
+
+    responseToJson['types'].forEach(element =>{
+      console.log('type ist:', element.type.name); // kann raus wenn es funktioniert
+      const typeValue = element.type.name;
+      getTypeAllocation(typeValue);
+
+    });
+
+
 }
 
-
-function getTypeAllocation(id, typeValue) {
+function getTypeAllocation(typeValue){
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
-  const svgContainer = document.getElementById("type"+id);
+  const svgContainer = document.getElementById("img-container"); // hier noch die entsprechende id mit übergeben
   if (svgFileObj) {
-    svgContainer.innerHTML += `
-      <div class="type-container">
-        <div id="img-container" class="poke-type" style="background-color: ${svgFileObj.color}">
-          <img src="${svgFileObj.file}">
-        </div>
-        <p>${svgFileObj.value}</p>
-      </div>
-    `;
+    svgContainer.innerHTML = `<img src="${svgFileObj.file}">`;
   } else {
     svgContainer.innerHTML = "Keine passende SVG-Datei gefunden.";
   }
@@ -100,53 +81,43 @@ function getTypeAllocation(id, typeValue) {
 
 
 
+// JavaScript-Code
 
+
+// SVG-Dateien und Zuordnungen definieren
+// API-Wert auslesen (hier als Beispiel ein String "type2")
+// const typeValue = "type2";
+
+// SVG-Datei aus dem Array suchen
+// const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
+
+// // SVG-Datei in das HTML-Element einfügen
+// const svgContainer = document.getElementById("img-container"); // hier noch die entsprechende id mit übergeben
+// if (svgFileObj) {
+//   svgContainer.innerHTML = `<img src="${svgFileObj.file}">`;
+// } else {
+//   svgContainer.innerHTML = "Keine passende SVG-Datei gefunden.";
+// }
 
 
 
 // window-functions
 
-// window.addEventListener('scroll', () => {
-//     // Wenn das Ende des Dokuments erreicht wurde
-//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//         // Erhöhen Sie den Offset-Wert, um weitere Pokémon zu laden
-//         offset += limit;
-//         loadPokemon();
-//     }
+window.addEventListener('scroll', () => {
+    // Wenn das Ende des Dokuments erreicht wurde
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        // Erhöhen Sie den Offset-Wert, um weitere Pokémon zu laden
+        offset += limit;
+        loadPokemon();
+    }
 
-//     // Wenn der Benutzer ganz oben auf der Seite ist
-//     if (window.scrollY === 0) {
-//         // Setzen Sie den Offset-Wert auf 0, um die ersten Pokémon zu laden
-//         offset = 0;
-//         loadPokemon();
-//     }
-// });
-
-
-
-// window.addEventListener('scroll', () => {
-  
-//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    
-
-//         loadPokemon();
-//     }
-// });
-
-
-
-window.addEventListener('scroll', async () => {
-  const scrollPosition = window.innerHeight + window.scrollY;
-  const bodyHeight = document.body.offsetHeight;
-
-  // Wenn das Ende des Dokuments erreicht wurde
-  if (scrollPosition >= bodyHeight) {
-    // Erhöhen Sie den Offset-Wert, um weitere Pokémon zu laden
-    await appendPokemonInfo();
-  }
+    // Wenn der Benutzer ganz oben auf der Seite ist
+    if (window.scrollY === 0) {
+        // Setzen Sie den Offset-Wert auf 0, um die ersten Pokémon zu laden
+        offset = 0;
+        loadPokemon();
+    }
 });
-
-
 
 function openCard(){
   document.getElementById('overlay').classList.remove("d-none")
