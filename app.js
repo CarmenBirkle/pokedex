@@ -19,13 +19,6 @@ async function loadPokemon(){
   offset += limit; // Erhöhe offset um limit, um die nächsten 20 Pokémon beim nächsten Laden zu erhalten
 }
 
-// async function loadPokemon(){
-//   let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-//   response = await fetch(url);
-//   let responseToJson = await response.json();
-//   console.log('aktuelles response', responseToJson); // kann raus wenns funzt
-//   renderPokemoninfo(responseToJson); 
-// }
 
 window.addEventListener('scroll', () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -45,9 +38,6 @@ function stickyNavbar() {
 
 
 
-
-
-
 function renderPokemoninfo(responseToJson){
     let results = responseToJson['results']
     for (let i = 0; i < results.length; i++) {
@@ -62,7 +52,7 @@ async function getSingelPokemonData(url){
   // wenn daten vorhanden , dann jeweils das i. te Element von pokemon-url hier übergeben aus funktion oben drüber
   let singelURL = url;
   let container = document.getElementById('main-content')
-  container.innerHTML = '';
+  // container.innerHTML = '';
 
   singlePokemonResponse = await fetch(singelURL);
   let responseToJson = await singlePokemonResponse.json();
@@ -115,53 +105,6 @@ function getTypeAllocation(id, typeValue) {
   }
 }
 
-
-
-
-
-
-
-// window-functions
-
-// window.addEventListener('scroll', () => {
-//     // Wenn das Ende des Dokuments erreicht wurde
-//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//         // Erhöhen Sie den Offset-Wert, um weitere Pokémon zu laden
-//         offset += limit;
-//         loadPokemon();
-//     }
-
-//     // Wenn der Benutzer ganz oben auf der Seite ist
-//     if (window.scrollY === 0) {
-//         // Setzen Sie den Offset-Wert auf 0, um die ersten Pokémon zu laden
-//         offset = 0;
-//         loadPokemon();
-//     }
-// });
-
-
-
-// window.addEventListener('scroll', () => {
-  
-//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    
-
-//         loadPokemon();
-//     }
-// });
-
-
-
-// window.addEventListener('scroll', async () => {
-//   const scrollPosition = window.innerHeight + window.scrollY;
-//   const bodyHeight = document.body.offsetHeight;
-
-//   // Wenn das Ende des Dokuments erreicht wurde
-//   if (scrollPosition >= bodyHeight) {
-//     // Erhöhen Sie den Offset-Wert, um weitere Pokémon zu laden
-//     await appendPokemonInfo();
-//   }
-// });
 
 
 
