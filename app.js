@@ -4,6 +4,7 @@ let sticky = navbar.offsetTop;
 let currentPokemons = [];
 let response;
 let singlePokemonResponse;
+
 let offset = 0;
 const limit = 20;
 
@@ -19,6 +20,16 @@ async function loadPokemon(){
   offset += limit; // Erhöhe offset um limit, um die nächsten 20 Pokémon beim nächsten Laden zu erhalten
 }
 
+//Holt ein einzelnes Pokemon auf Basis der öffnenden Karte und ruft die Renderfunktion auf
+async function loadSinglePokemon(id){ // for Detail Card
+  let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  let singleResponse = await fetch(url);
+  let singelResponseToJson = await singleResponse.json();
+  console.log(' Aufgerufen - aktuelles  Einzelnes response', singelResponseToJson); // kann raus wenns funzt
+  renderSingelPokemonCard(singelResponseToJson);
+  
+  renderStats(singelResponseToJson);
+}
 
 window.addEventListener('scroll', () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -79,13 +90,7 @@ function getType(responseToJson){
   });
 }
 
-//holt die einzelnen Statuswerte - diese muss ich noch in die Karte bringen
-function renderStats(responseToJson){  
-  responseToJson['stats'].forEach(element => {
-  console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
 
-});
-}
 
 
 function getTypeAllocation(id, typeValue) {
@@ -101,17 +106,18 @@ function getTypeAllocation(id, typeValue) {
       </div>
     `;
   } else {
-    svgContainer.innerHTML = "Keine passende SVG-Datei gefunden.";
+    svgContainer.innerHTML = "Keine passende SVG-Datei gefunden."; // kann ggf. raus testen - ansonsten per Log ?
   }
 }
 
 
 
 
-function openCard(){
+function openCard(id){
   document.getElementById('overlay').classList.remove("d-none")
   document.getElementById('main-content').classList.add("d-none");
   document.getElementById('header').classList.add("d-none");
+  loadSinglePokemon(id);
 }
 
 function closeByButton(){
@@ -119,6 +125,103 @@ function closeByButton(){
   document.getElementById('main-content').classList.remove("d-none");
   document.getElementById('header').classList.remove("d-none");
 }
+
+// //holt die einzelnen Statuswerte - diese muss ich noch in die Karte bringen
+// function renderStats(singelResponseToJson){  
+//   singelResponseToJson['stats'].forEach(element => {
+//   console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
+
+// });
+// }
+
+function renderStats(singelResponseToJson) {  
+  console.log("renderStats aufgerufen:") // kann raus wenns funzt
+  singelResponseToJson['stats'].forEach(element => {
+    console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat); // ggf. raus
+    console.log(document.getElementById("bar-special-attack")); // ggf. raus
+    let statName = element.stat.name.toLowerCase(); // steckt den name aus den Array in stat Name
+    let statValue = element.base_stat; // steckt den Wert aus dem Array in statVaule
+    let statElement = document.getElementById(statName); // holt sich das id element 
+    
+    if (statElement) {
+      statElement.textContent = statValue;
+    }
+  
+
+  });
+}
+
+// function renderSingelStats(statName, baseStat){
+//   let singelStats = document.getElementById('singleStats')
+//   singelStats.innerHTML += singelStats(statName, baseStat);
+  
+//   const barId = getBarId(statName);
+//   if (barId) {
+//     const barElement = document.getElementById(barId);
+//     if (barElement) {
+//       barElement.style.width = `${baseStat}%`;
+//     }
+//   }
+// }
+
+
+
+
+
+
+function shortenStatName(statName) { // brauch ich ev. nicht mehr
+  switch (statName) {
+    case "hp":
+      return "HP";
+    case "attack":
+      return "ATK";
+    case "defense":
+      return "DEF";
+    case "special-attack":
+      return "SPA";
+    case "special-defense":
+      return "SPD";
+    case "speed":
+      return "SP";
+    default:
+      return statName.toUpperCase();
+  }
+} 
+
+
+
+function renderSingelPokemonCard(singelResponseToJson){
+  let pokemonSingleCard = document.getElementById('overlay');
+  pokemonSingelCard = '';
+  pokemonSingleCard.innerHTML = pokemonDetailCard(singelResponseToJson);
+}
+
+function forward(id){
+  if (id === 1008){
+    loadSinglePokemon(id);
+    setTimeout(function() {  // blendet den zurück button mit iener verzögerung von 100ms aus, wenn man beim ersten Pokemon angekommen ist
+      document.getElementById('forward').classList.add('d-none');
+    }, 100);
+  }
+  else {
+    loadSinglePokemon(id);
+  }
+}
+
+function backwards(id){
+  if (id === 1){
+    loadSinglePokemon(id);
+    setTimeout(function() {  // blendet den zurück button mit iener verzögerung von 100ms aus, wenn man beim ersten Pokemon angekommen ist
+      document.getElementById('back').classList.add('d-none');
+    }, 100);
+  }
+  else {
+    loadSinglePokemon(id);
+  }
+}  
+
+
+
 
 
  

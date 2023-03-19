@@ -166,7 +166,6 @@ p{
     width: 300px;
     display: flex;
     justify-content: end; 
-    /* align-items: flex-end; */
     position: relative;
   }
 
@@ -223,31 +222,6 @@ p{
     margin: 0px 32px;
   }
   
-
-
-
-
-/* #pokedex {
-min-height: 50vh;
-background-color: #fc7779;
-color: white;
-display: flex;
-} */
-
-/* #info-container{
-    background-color: rebeccapurple;
-    margin-top: -40px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    min-height: 100px;
-} */
-
-/* .card1{
-    height: 200px;
-    width: 200px;
-    background-color: bisque;
-
-} */
 
 .nav-bar{
     height: 100px;
@@ -534,5 +508,14 @@ border: 3px solid var(--dark-gray);
 
   border: 3px solid var(--dark-gray);
 
+}
+
+.pokeball-background{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 70%;
+      opacity: 0.08;
 }
 
