@@ -2,6 +2,9 @@
     .nav-left {
         display: none;
     }
+    .form-area{
+        margin-right: 0;
+    }
     #navbar{
         justify-content: center;
     }
@@ -27,7 +30,8 @@
         font-size: 14px;
     }
     button{
-        font-size: 14px
+        font-size: 14px;
+        width: 125px;
     }
 }
 

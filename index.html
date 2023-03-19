@@ -27,11 +27,13 @@
     </div>
    
     <div class="form-area">
-        <form> 
-            <input class="input"> <button class="search-btn">  Search by Name </button>
+        <form onsubmit="event.preventDefault(); searchByName()"> 
+            <input id="input-name"class="input" pattern="[A-Za-z]+" title="Only letters are allowed"> 
+            <button class="search-btn">  Search by Name </button>
         </form> 
-        <form> 
-            <input class="input"> <button class="search-btn">  Search by ID </button>
+        <form onsubmit="event.preventDefault(); searchByNumber()"> 
+            <input id="input-nr" class="input" pattern="[1-9]|[1-9][0-9]{0,2}|1008" title=" Choose a number between 1 and 1008"> 
+            <button class="search-btn">  Search by ID </button>
         </form> 
     </div>
   </div>
@@ -42,12 +44,12 @@
 
     <!-- innere Karte:  -->
 <div  id="overlay" class="content-detail overlay d-none">
-    <img class="pokeball-background" src="./img/pokeball.png" alt="pokeball">
+    <!-- <img class="pokeball-background" src="./img/pokeball.png" alt="pokeball"> -->
 
 
     <!-- Testarea - innere Karte  -->
 
-    <div id="card-detail" class="card card-detail">
+    <!-- <div id="card-detail" class="card card-detail">
         <div class="card-top">
             <h2># 0132</h2>
             <img class="pokemon-img-detail" src="./img/006.png" alt="">
@@ -129,7 +131,7 @@
 
         </div>
         
-    </div>
+    </div> -->
 
 
 

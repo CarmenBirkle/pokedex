@@ -8,8 +8,26 @@ let singlePokemonResponse;
 let offset = 0;
 const limit = 20;
 
+// windows behaviour and functions
 
 window.onscroll = function() {stickyNavbar()};
+
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+      loadPokemon();
+  }
+});
+
+function stickyNavbar() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+// asyn functions to load data from api
 
 async function loadPokemon(){
   let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
@@ -21,33 +39,45 @@ async function loadPokemon(){
 }
 
 //Holt ein einzelnes Pokemon auf Basis der öffnenden Karte und ruft die Renderfunktion auf
-async function loadSinglePokemon(id){ // for Detail Card
-  let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  let singleResponse = await fetch(url);
-  let singelResponseToJson = await singleResponse.json();
-  console.log(' Aufgerufen - aktuelles  Einzelnes response', singelResponseToJson); // kann raus wenns funzt
-  renderSingelPokemonCard(singelResponseToJson);
+// async function loadSinglePokemon(id){ // for Detail Card
+//   let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+//   let singleResponse = await fetch(url);
+//   let singelResponseToJson = await singleResponse.json();
+//   console.log(' Aufgerufen - aktuelles  Einzelnes response', singelResponseToJson); // kann raus wenns funzt
+//   renderSingelPokemonCard(singelResponseToJson);
   
+//   renderStats(singelResponseToJson);
+// }
+
+async function loadSinglePokemon(id) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  let singelResponseToJson;
+
+  try {
+    const singleResponse = await fetch(url);
+
+    if (!singleResponse.ok) {
+      throw new Error(`Pokemon ${id} wurde nicht gefunden oder ein Fehler ist aufgetreten.`);
+    }
+
+    singelResponseToJson = await singleResponse.json();
+  } catch (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+
+  console.log('Aktuelles Einzelnes response:', singelResponseToJson);
+  renderSingelPokemonCard(singelResponseToJson);
   renderStats(singelResponseToJson);
-}
-
-window.addEventListener('scroll', () => {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (scrollTop + clientHeight >= scrollHeight - 5) {
-      loadPokemon();
-  }
-});
-
-
-function stickyNavbar() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
+  showCard();
 }
 
 
+
+
+
+// Render functions
 
 function renderPokemoninfo(responseToJson){
     let results = responseToJson['results']
@@ -91,8 +121,6 @@ function getType(responseToJson){
 }
 
 
-
-
 function getTypeAllocation(id, typeValue) {
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
   const svgContainer = document.getElementById("type"+id);
@@ -114,11 +142,17 @@ function getTypeAllocation(id, typeValue) {
 
 
 function openCard(id){
+  showCard();
+  loadSinglePokemon(id);
+}
+
+function showCard(){
   document.getElementById('overlay').classList.remove("d-none")
   document.getElementById('main-content').classList.add("d-none");
   document.getElementById('header').classList.add("d-none");
-  loadSinglePokemon(id);
 }
+
+
 
 function closeByButton(){
   document.getElementById('overlay').classList.add("d-none");
@@ -219,6 +253,24 @@ function backwards(id){
     loadSinglePokemon(id);
   }
 }  
+
+function searchByNumber(){
+  const inputValue = document.getElementById('input-nr').value;
+  loadSinglePokemon(inputValue);
+  document.getElementById('input-nr').value = '';
+}
+
+function searchByName(){
+  const inputValue = document.getElementById('input-name').value;
+  loadSinglePokemon(inputValue);
+  document.getElementById('input-name').value = '';
+}
+
+
+
+
+
+
 
 
 
