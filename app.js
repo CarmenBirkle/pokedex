@@ -70,6 +70,7 @@ async function loadSinglePokemon(id) {
   console.log('Aktuelles Einzelnes response:', singelResponseToJson);
   renderSingelPokemonCard(singelResponseToJson);
   renderStats(singelResponseToJson);
+  getDetailType(singelResponseToJson);
   showCard();
 }
 
@@ -103,7 +104,6 @@ async function getSingelPokemonData(url){
   // );
 
   container.innerHTML += pokemonCard(responseToJson);
-  // console.log(responseToJson.gender_rate);
   getType(responseToJson);
   renderStats(responseToJson);
 
@@ -130,7 +130,7 @@ function getTypeAllocation(id, typeValue) {
         <div id="img-container" class="poke-type" style="background-color: ${svgFileObj.color}">
           <img src="${svgFileObj.file}">
         </div>
-        <p>${svgFileObj.value}</p>
+        <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
       </div>
     `;
   } else {
@@ -184,22 +184,6 @@ function renderStats(singelResponseToJson) {
 
   });
 }
-
-// function renderSingelStats(statName, baseStat){
-//   let singelStats = document.getElementById('singleStats')
-//   singelStats.innerHTML += singelStats(statName, baseStat);
-  
-//   const barId = getBarId(statName);
-//   if (barId) {
-//     const barElement = document.getElementById(barId);
-//     if (barElement) {
-//       barElement.style.width = `${baseStat}%`;
-//     }
-//   }
-// }
-
-
-
 
 
 
@@ -265,6 +249,44 @@ function searchByName(){
   loadSinglePokemon(inputValue);
   document.getElementById('input-name').value = '';
 }
+
+
+// render beereich der Typen für die einzelne Karte 
+// für die einzelne Karte  ermittelt den Type und ruft dann für jeden Typ den Vergleich getTypeAllocation auf
+function getDetailType(responseToJson){
+  responseToJson['types'].forEach(element =>{
+    console.log('Detail: type ist:', element.type.name);
+    console.log('Detail: gehört zu pokemon:', responseToJson['id']) // kann raus wenn es funktioniert
+    const typeValue = element.type.name;
+    getDetailTypeAllocation(responseToJson['id'], typeValue);
+
+  });
+}
+
+// für die einzelne Karte 
+function getDetailTypeAllocation(id, typeValue) {
+  const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
+  const svgContainer = document.getElementById("type-detail"+id);
+  if (svgFileObj) {
+    svgContainer.innerHTML += `
+        <div class="type-container-detail">
+          <div class="poke-type-detail" style="background-color: ${svgFileObj.color}">
+            <img src="${svgFileObj.file}">
+          </div>
+          
+          <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
+
+        </div>
+    `;
+  } else {
+    svgContainer.innerHTML = "Keine passende SVG-Datei gefunden."; // kann ggf. raus testen - ansonsten per Log ?
+  }
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 
 

@@ -495,7 +495,7 @@ border: 3px solid var(--dark-gray);
 }
 
 .poke-type-detail{
-  background-color: #83c301;
+  /* background-color: #83c301; */
   height: 30px;
   width: 30px;
   border-radius: 50%;
