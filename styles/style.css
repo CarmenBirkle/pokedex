@@ -354,9 +354,37 @@ border: 3px solid var(--dark-gray);
 
 .bar-fill {
   height: 100%;
-  background-color: red;
+  /* background-color: red; */
   border-radius: 10px;
-  animation: fill-bar 2s ease-in-out forwards;
+  /* animation: fill-bar 2s ease-in-out forwards; */
+}
+#bar-attack{
+  background-color: #E96479;
+  animation: fill-bar-attack 2s ease-in-out forwards;
+}
+
+#bar-hp{
+  background-color: #FFB200;
+  animation: fill-bar-hp 2s ease-in-out forwards;
+}
+
+#bar-defense{
+  background-color: #7DB9B6;
+  animation: fill-bar-defense 2s ease-in-out forwards;
+}
+
+#bar-special-attack{
+  background-color: #4D455D;
+  animation: fill-bar-special-attack 2s ease-in-out forwards;
+}
+
+#bar-special-defense{
+  background-color: #4E31AA;
+  animation: fill-bar-special-defense 2s ease-in-out forwards;
+}
+#bar-speed{
+  background-color: #898121;
+  animation: fill-bar-speed 2s ease-in-out forwards;
 }
 
 .bar-label {
@@ -378,10 +406,10 @@ border: 3px solid var(--dark-gray);
 }
 
 
-@keyframes fill-bar {
+/* @keyframes fill-bar {
   from {width: 0;}
-  to {width: 80%;}
-} 
+  to {width: 20%;}
+}  */
 
 
 #about{

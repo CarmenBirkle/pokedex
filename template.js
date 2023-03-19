@@ -50,21 +50,21 @@ function pokemonDetailCard(singelPokemon){
 
         <div class="bar-container">
         <div class="bar">
-          <div id="bar-hp" class="bar-fill" style="width: 80%;"></div>
-          <div class="bar-label"> <b>HP&nbsp;</b> <span id="hp">80</span>%</div>
+          <div id="bar-hp" class="bar-fill" style="width: 10%;"></div>
+          <div class="bar-label"> <b>HP&nbsp;</b> <span id="hp">10</span>%</div>
         </div>
       </div>
 
       <div class="bar-container">
         <div class="bar">
-          <div id="bar-attack"class="bar-fill" style="width: 80%;"></div>
+          <div id="bar-attack"class="bar-fill"></div>
           <div class="bar-label"> <b>ATK</b> <span id="attack">80</span>%</div>
         </div>
       </div>
 
       <div class="bar-container">
         <div class="bar">
-          <div id="bar-defense"class="bar-fill" style="width: 80%;"></div>
+          <div id="bar-defense"class="bar-fill" style="width: 30%;"></div>
           <div class="bar-label"> <b>DEF</b> <span id="defense">80</span>%</div>
         </div>
       </div>
@@ -120,5 +120,15 @@ function singleStatsHtml(statName, baseStat){
     </div>
   </div>
     `;
+}
+
+function keyFrameHTML(statName, statValue){
+    return `
+    @keyframes fill-bar-${statName} {
+        from {width: 0%;}
+        to {width: ${statValue}%;}
+    }
+    `;
+
 }
 

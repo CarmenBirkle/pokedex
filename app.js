@@ -168,22 +168,64 @@ function closeByButton(){
 // });
 // }
 
-function renderStats(singelResponseToJson) {  
-  console.log("renderStats aufgerufen:") // kann raus wenns funzt
-  singelResponseToJson['stats'].forEach(element => {
-    console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat); // ggf. raus
-    console.log(document.getElementById("bar-special-attack")); // ggf. raus
-    let statName = element.stat.name.toLowerCase(); // steckt den name aus den Array in stat Name
-    let statValue = element.base_stat; // steckt den Wert aus dem Array in statVaule
-    let statElement = document.getElementById(statName); // holt sich das id element 
+// function renderStats(singelResponseToJson) {  
+//   console.log("renderStats aufgerufen:") // kann raus wenns funzt
+//   singelResponseToJson['stats'].forEach(element => {
+//     console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat); // ggf. raus
+//     console.log(document.getElementById("bar-special-attack")); // ggf. raus
+//     let statName = element.stat.name.toLowerCase(); // steckt den name aus den Array in stat Name
+//     let statValue = element.base_stat; // steckt den Wert aus dem Array in statVaule
+//     let statElement = document.getElementById(statName); // holt sich das id element 
     
-    if (statElement) {
-      statElement.textContent = statValue;
-    }
+//     if (statElement) {
+//       statElement.textContent = statValue;
+//       document.getElementById('bar-'+statName).classList.add("width:" +statValue+"%")
+//     }
+//     // renderKeyFramesforStats (statName, statValue); 
+//     // hier nochmals nach dem fehler schauen
   
 
+//   });
+// }
+
+//notizen von oben übertragen
+
+function renderStats(singelResponseToJson) {  
+  console.log("renderStats aufgerufen:");
+  renderKeyFramesforStats(singelResponseToJson);
+  singelResponseToJson['stats'].forEach(element => {
+    console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
+    let statName = element.stat.name.toLowerCase();
+    let statValue = element.base_stat;
+    let statElement = document.getElementById(statName);
+
+    if (statElement) {
+      statElement.textContent = statValue;
+      let barElement = document.getElementById('bar-'+statName);
+      if (barElement) {
+        barElement.style.width = statValue + '%';
+      }
+    }
   });
 }
+
+
+
+
+
+function renderKeyFramesforStats (singelResponseToJson) {
+  const statNames = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
+  let keyFramesHTML = '';
+  singelResponseToJson['stats'].forEach(element => {
+    let statName = element.stat.name.toLowerCase();
+    let statValue = element.base_stat;
+    if (statNames.includes(statName)) {
+      keyFramesHTML += keyFrameHTML(statName, statValue);
+    }
+  });
+  document.getElementById('keyframe').innerHTML = keyFramesHTML;
+}
+
 
 
 
