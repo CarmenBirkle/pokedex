@@ -173,7 +173,8 @@ p{
   .background-img {
     opacity: 0.05;
     width: 185px !important;
-    height: fit-content;
+    height: 185px;
+    height: fit-content !important;
     margin: 10px;
     position: absolute;
     right: 2px;

@@ -1,10 +1,9 @@
-
 let navbar = document.getElementById("navbar");
 let sticky = navbar.offsetTop;
 let currentPokemons = [];
 let response;
 let singlePokemonResponse;
-
+let scrollPosition; 
 let offset = 0;
 const limit = 20;
 
@@ -27,100 +26,53 @@ function stickyNavbar() {
   }
 }
 
-// asyn functions to load data from api
-
+// asyn functions to load data from api for all pokemons
+//TODO console log raus
 async function loadPokemon(){
   let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
   response = await fetch(url);
+  // console.log(response);
   let responseToJson = await response.json();
-  console.log('aktuelles response', responseToJson); // kann raus wenns funzt
+  // console.log(responseToJson);
   renderPokemoninfo(responseToJson); 
-  offset += limit; // Erhöhe offset um limit, um die nächsten 20 Pokémon beim nächsten Laden zu erhalten
+  offset += limit; // increases offset (limit) by 20 
 }
 
-//Holt ein einzelnes Pokemon auf Basis der öffnenden Karte und ruft die Renderfunktion auf
-// async function loadSinglePokemon(id){ // for Detail Card
-//   let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-//   let singleResponse = await fetch(url);
-//   let singelResponseToJson = await singleResponse.json();
-//   console.log(' Aufgerufen - aktuelles  Einzelnes response', singelResponseToJson); // kann raus wenns funzt
-//   renderSingelPokemonCard(singelResponseToJson);
-  
-//   renderStats(singelResponseToJson);
-// }
-
-async function loadSinglePokemon(id) {
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  let singelResponseToJson;
-
-  try {
-    const singleResponse = await fetch(url);
-
-    if (!singleResponse.ok) {
-      throw new Error(`Pokemon ${id} wurde nicht gefunden oder ein Fehler ist aufgetreten.`);
-    }
-
-    singelResponseToJson = await singleResponse.json();
-  } catch (error) {
-    alert(error.message);
-    console.error(error);
-    return;
-  }
-
-  console.log('Aktuelles Einzelnes response:', singelResponseToJson);
-  renderSingelPokemonCard(singelResponseToJson);
-  renderStats(singelResponseToJson);
-  getDetailType(singelResponseToJson);
-  showCard();
-}
-
-
-
-
-
-// Render functions
-
-function renderPokemoninfo(responseToJson){
+//gets the url for each pokemon and passes it to the function getSingelPokemonData for rendering
+async function renderPokemoninfo(responseToJson){ // async kann eigentlich raus oder ?
     let results = responseToJson['results']
     for (let i = 0; i < results.length; i++) {
-    const pokemon = results[i];
-    console.log(pokemon['name']); // kann raus wenns funzt
-    console.log(pokemon['url']); // kann raus wenns funzt
-    getSingelPokemonData(pokemon['url']);
+      const pokemon = results[i];
+      getSingelPokemonData(pokemon['url']);
     }    
 }
 
+//TODO wichtig - nicht container.innerHTML = '' verwenden, sonst werden die ersten Pokemons wieder gelöscht
+// Vermute hier ist mein Fehler ? 
 async function getSingelPokemonData(url){
-  // wenn daten vorhanden , dann jeweils das i. te Element von pokemon-url hier übergeben aus funktion oben drüber
   let singelURL = url;
   let container = document.getElementById('main-content')
-  // container.innerHTML = '';
-
   singlePokemonResponse = await fetch(singelURL);
   let responseToJson = await singlePokemonResponse.json();
-  // console.log('singel Response', responseToJson);
-  // console.log('name', responseToJson['name'],'id', responseToJson['id'], 'weight', responseToJson['weight'],
-  // 'bild', responseToJson['sprites']['front_shiny']
-  // );
-
   container.innerHTML += pokemonCard(responseToJson);
   getType(responseToJson);
   renderStats(responseToJson);
-
 }
 
-// ermittelt den Type und ruft dann für jeden Typ den Vergleich getTypeAllocation auf
+// finds the type for all cards and then calls a comparison for this type -> getTypeAllocation ( max.2 types)
 function getType(responseToJson){
+  let numTypesRendered = 0;
   responseToJson['types'].forEach(element =>{
-    console.log('type ist:', element.type.name);
-    console.log('gehört zu pokemon:', responseToJson['id']) // kann raus wenn es funktioniert
-    const typeValue = element.type.name;
-    getTypeAllocation(responseToJson['id'], typeValue);
-
+    if (numTypesRendered < 2) { // Only render first 2 types
+      const typeValue = element.type.name;
+      getTypeAllocation(responseToJson['id'], typeValue);
+      numTypesRendered++;
+    }
   });
 }
 
-
+//TODO - noch kürzen, ggf. else raus!
+//compares the given type with the values from typeAllocation and determines the matching colour and image (all Cards)
 function getTypeAllocation(id, typeValue) {
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
   const svgContainer = document.getElementById("type"+id);
@@ -138,117 +90,51 @@ function getTypeAllocation(id, typeValue) {
   }
 }
 
-
-
-
-function openCard(id){
-  showCard();
-  loadSinglePokemon(id);
-}
-
-function showCard(){
-  document.getElementById('overlay').classList.remove("d-none")
-  document.getElementById('main-content').classList.add("d-none");
-  document.getElementById('header').classList.add("d-none");
-}
-
-
-
-function closeByButton(){
-  document.getElementById('overlay').classList.add("d-none");
-  document.getElementById('main-content').classList.remove("d-none");
-  document.getElementById('header').classList.remove("d-none");
-}
-
-// //holt die einzelnen Statuswerte - diese muss ich noch in die Karte bringen
-// function renderStats(singelResponseToJson){  
-//   singelResponseToJson['stats'].forEach(element => {
-//   console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
-
-// });
-// }
-
-// function renderStats(singelResponseToJson) {  
-//   console.log("renderStats aufgerufen:") // kann raus wenns funzt
-//   singelResponseToJson['stats'].forEach(element => {
-//     console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat); // ggf. raus
-//     console.log(document.getElementById("bar-special-attack")); // ggf. raus
-//     let statName = element.stat.name.toLowerCase(); // steckt den name aus den Array in stat Name
-//     let statValue = element.base_stat; // steckt den Wert aus dem Array in statVaule
-//     let statElement = document.getElementById(statName); // holt sich das id element 
-    
-//     if (statElement) {
-//       statElement.textContent = statValue;
-//       document.getElementById('bar-'+statName).classList.add("width:" +statValue+"%")
-//     }
-//     // renderKeyFramesforStats (statName, statValue); 
-//     // hier nochmals nach dem fehler schauen
-  
-
-//   });
-// }
-
-//notizen von oben übertragen
-
+//compares and replaces the statistical data
 function renderStats(singelResponseToJson) {  
-  console.log("renderStats aufgerufen:");
   renderKeyFramesforStats(singelResponseToJson);
   singelResponseToJson['stats'].forEach(element => {
-    console.log('stat-nameausFunktion:', element.stat.name, 'base-stat:', element.base_stat);
     let statName = element.stat.name.toLowerCase();
     let statValue = element.base_stat;
     let statElement = document.getElementById(statName);
-
-    if (statElement) {
-      statElement.textContent = statValue;
+    if (statElement) { // if an id tag exists, the text is replaced with the stat value
+      statElement.textContent = statValue; 
       let barElement = document.getElementById('bar-'+statName);
-      if (barElement) {
-        barElement.style.width = statValue + '%';
+      if (barElement) { // if an id tag exists, the inline style (width) is replaced with the stat value
+        barElement.style.width = statValue + '%'; 
       }
     }
   });
 }
 
 
+// all single card view functions
 
+//TODO kürzen
+//Fetches the data of a specific pokemon for the single view
+async function loadSinglePokemon(id) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  let singelResponseToJson;
 
+  try {
+    const singleResponse = await fetch(url);
 
-function renderKeyFramesforStats (singelResponseToJson) {
-  const statNames = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
-  let keyFramesHTML = '';
-  singelResponseToJson['stats'].forEach(element => {
-    let statName = element.stat.name.toLowerCase();
-    let statValue = element.base_stat;
-    if (statNames.includes(statName)) {
-      keyFramesHTML += keyFrameHTML(statName, statValue);
+    if (!singleResponse.ok) {
+      throw new Error(`Pokemon ${id} wurde nicht gefunden, hast Du Dich vielleicht verschrieben?`);
     }
-  });
-  document.getElementById('keyframe').innerHTML = keyFramesHTML;
-}
 
-
-
-
-function shortenStatName(statName) { // brauch ich ev. nicht mehr
-  switch (statName) {
-    case "hp":
-      return "HP";
-    case "attack":
-      return "ATK";
-    case "defense":
-      return "DEF";
-    case "special-attack":
-      return "SPA";
-    case "special-defense":
-      return "SPD";
-    case "speed":
-      return "SP";
-    default:
-      return statName.toUpperCase();
+    singelResponseToJson = await singleResponse.json();
+  } catch (error) {
+    alert(error.message);
+    console.error(error);
+    return;
   }
-} 
 
-
+  renderSingelPokemonCard(singelResponseToJson);
+  renderStats(singelResponseToJson);
+  getDetailType(singelResponseToJson);
+  showCard();
+}
 
 function renderSingelPokemonCard(singelResponseToJson){
   let pokemonSingleCard = document.getElementById('overlay');
@@ -259,7 +145,7 @@ function renderSingelPokemonCard(singelResponseToJson){
 function forward(id){
   if (id === 1008){
     loadSinglePokemon(id);
-    setTimeout(function() {  // blendet den zurück button mit iener verzögerung von 100ms aus, wenn man beim ersten Pokemon angekommen ist
+    setTimeout(function() {  //Hides the forward button with a delay of 100ms when you have reached the last Pokemon.
       document.getElementById('forward').classList.add('d-none');
     }, 100);
   }
@@ -271,7 +157,7 @@ function forward(id){
 function backwards(id){
   if (id === 1){
     loadSinglePokemon(id);
-    setTimeout(function() {  // blendet den zurück button mit iener verzögerung von 100ms aus, wenn man beim ersten Pokemon angekommen ist
+    setTimeout(function() {  // Hides the back button with a delay of 100ms when you have reached the first Pokemon.
       document.getElementById('back').classList.add('d-none');
     }, 100);
   }
@@ -280,32 +166,20 @@ function backwards(id){
   }
 }  
 
-function searchByNumber(){
-  const inputValue = document.getElementById('input-nr').value;
-  loadSinglePokemon(inputValue);
-  document.getElementById('input-nr').value = '';
-}
-
-function searchByName(){
-  const inputValue = document.getElementById('input-name').value;
-  loadSinglePokemon(inputValue);
-  document.getElementById('input-name').value = '';
-}
-
-
-// render beereich der Typen für die einzelne Karte 
-// für die einzelne Karte  ermittelt den Type und ruft dann für jeden Typ den Vergleich getTypeAllocation auf
+// finds the type for the single card view and then calls a comparison for this type -> getTypeAllocation (max. 2 types)
 function getDetailType(responseToJson){
+  let numTypesRendered = 0;
   responseToJson['types'].forEach(element =>{
-    console.log('Detail: type ist:', element.type.name);
-    console.log('Detail: gehört zu pokemon:', responseToJson['id']) // kann raus wenn es funktioniert
+    if (numTypesRendered < 2) { // Only render first 2 types
     const typeValue = element.type.name;
     getDetailTypeAllocation(responseToJson['id'], typeValue);
-
+    numTypesRendered++;
+    }
   });
 }
 
-// für die einzelne Karte 
+//TODO - noch kürzen, ggf. else raus!
+//compares the given type with the values from typeAllocation and determines the matching colour and image
 function getDetailTypeAllocation(id, typeValue) {
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
   const svgContainer = document.getElementById("type-detail"+id);
@@ -323,6 +197,59 @@ function getDetailTypeAllocation(id, typeValue) {
   } else {
     svgContainer.innerHTML = "Keine passende SVG-Datei gefunden."; // kann ggf. raus testen - ansonsten per Log ?
   }
+}
+
+//renders individual keyframes for the dynamic stat values
+function renderKeyFramesforStats (singelResponseToJson) {
+  const statNames = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
+  let keyFramesHTML = '';
+  singelResponseToJson['stats'].forEach(element => {
+    let statName = element.stat.name.toLowerCase();
+    let statValue = element.base_stat;
+    if (statNames.includes(statName)) {
+      keyFramesHTML += keyFrameHTML(statName, statValue);
+    }
+  });
+  document.getElementById('keyframe').innerHTML = keyFramesHTML;
+}
+
+
+
+// Helper-Functions
+
+//searches for the pokemon on the basis of the choosen number
+function searchByNumber(){
+  const inputValue = document.getElementById('input-nr').value;
+  loadSinglePokemon(inputValue);
+  document.getElementById('input-nr').value = '';
+}
+
+
+// searches for the pokemon based on the name 
+function searchByName(){
+  const inputValue = document.getElementById('input-name').value.toLowerCase();
+  loadSinglePokemon(inputValue);
+  document.getElementById('input-name').value = '';
+}
+
+function openCard(id){
+  scrollPosition = window.pageYOffset; // TODO: nochmas probieren - geht noch nicht auf allen Geräten WHY?
+  showCard();
+  loadSinglePokemon(id);
+  
+}
+
+function showCard(){
+  document.getElementById('overlay').classList.remove("d-none")
+  document.getElementById('main-content').classList.add("d-none");
+  document.getElementById('header').classList.add("d-none");
+}
+
+function closeByButton(){
+  window.scrollTo(0, scrollPosition); //  TODO: nochmas probieren - geht noch nicht auf allen Geräten WHY? 
+  document.getElementById('overlay').classList.add("d-none");
+  document.getElementById('main-content').classList.remove("d-none");
+  document.getElementById('header').classList.remove("d-none");  
 }
 
 function capitalizeFirstLetter(string) {

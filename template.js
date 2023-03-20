@@ -64,7 +64,7 @@ function pokemonDetailCard(singelPokemon){
 
       <div class="bar-container">
         <div class="bar">
-          <div id="bar-defense"class="bar-fill" style="width: 30%;"></div>
+          <div id="bar-defense" class="bar-fill" style="width: 30%;"></div>
           <div class="bar-label"> <b>DEF</b> <span id="defense">80</span>%</div>
         </div>
       </div>
