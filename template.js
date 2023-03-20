@@ -38,78 +38,57 @@ function pokemonDetailCard(singelPokemon){
         <img  id="forward" onclick="forward(${singelPokemon['id']+1})" class="forward" src="./img/right.png" alt="forward">
 
         <div id=type-detail${singelPokemon['id']} class="type-detail"></div>
-
-        
-
     </div>
     <div class="container">
         <div class="pokemon-name">${singelPokemon['name']}</div>
 
-        
-        <div id="singelStats" class="stats">
+     <div id="singelStats" class="stats">
+            <div class="bar-container">
+                <div class="bar">
+                    <div id="bar-hp" class="bar-fill" style="width: 10%;"></div>
+                    <div class="bar-label"> <b>HP&nbsp;</b> <span id="hp">10</span>%</div>
+                </div>
+            </div>
 
         <div class="bar-container">
-        <div class="bar">
-          <div id="bar-hp" class="bar-fill" style="width: 10%;"></div>
-          <div class="bar-label"> <b>HP&nbsp;</b> <span id="hp">10</span>%</div>
-        </div>
-      </div>
+                <div class="bar">
+                <div id="bar-attack"class="bar-fill"></div>
+                <div class="bar-label"> <b>ATK</b> <span id="attack">80</span>%</div>
+                </div>
+            </div>
 
-      <div class="bar-container">
-        <div class="bar">
-          <div id="bar-attack"class="bar-fill"></div>
-          <div class="bar-label"> <b>ATK</b> <span id="attack">80</span>%</div>
-        </div>
-      </div>
+            <div class="bar-container">
+                <div class="bar">
+                <div id="bar-defense" class="bar-fill" style="width: 30%;"></div>
+                <div class="bar-label"> <b>DEF</b> <span id="defense">80</span>%</div>
+                </div>
+            </div>
 
-      <div class="bar-container">
-        <div class="bar">
-          <div id="bar-defense" class="bar-fill" style="width: 30%;"></div>
-          <div class="bar-label"> <b>DEF</b> <span id="defense">80</span>%</div>
-        </div>
-      </div>
+            <div class="bar-container">
+                <div class="bar">
+                <div id="bar-special-attack" class="bar-fill" style="width: 80%;"></div>
+                <div class="bar-label"> <b>SPA</b> <span id="special-attack">80</span>%</div>
+                </div>
+            </div>
 
-    
-      <div class="bar-container">
-      <div class="bar">
-        <div id="bar-special-attack" class="bar-fill" style="width: 80%;"></div>
-        <div class="bar-label"> <b>SPA</b> <span id="special-attack">80</span>%</div>
-      </div>
-    </div>
+            <div class="bar-container">
+                <div class="bar">
+                <div id="bar-special-defense" class="bar-fill" style="width: 80%;"></div>
+                <div class="bar-label"> <b>DPD</b> <span id="special-defense">80</span>%</div>
+                </div>
+            </div>
 
-      <div class="bar-container">
-        <div class="bar">
-          <div id="bar-special-defense" class="bar-fill" style="width: 80%;"></div>
-          <div class="bar-label"> <b>DPD</b> <span id="special-defense">80</span>%</div>
-        </div>
-      </div>
-
-      <div class="bar-container">
-        <div class="bar">
-          <div id="bar-speed"class="bar-fill" style="width: 20%;"></div>
-          <div class="bar-label"> <b>SP&nbsp;</b> <span id="speed">80</span>%</div>
-        </div>
-      </div>
-
-
-             
+            <div class="bar-container">
+                <div class="bar">
+                <div id="bar-speed"class="bar-fill" style="width: 20%;"></div>
+                <div class="bar-label"> <b>SP&nbsp;</b> <span id="speed">80</span>%</div>
+                </div>
+            </div>    
         </div>
     </div>
 </div>
 `;
 }
-
-
-// function singelStats(statName, baseStat){
-//     return `
-//     <div class="bar-container">
-//     <div class="bar">
-//       <div id="bar-hp" class="bar-fill" style="width: ${baseStat}%;"></div>
-//       <div class="bar-label"> <b>HP&nbsp;</b> <span id="hp">${baseStat}</span>%</div>
-//     </div>
-//   </div>
-//     `;
-// }
 
 function singleStatsHtml(statName, baseStat){
     return `
@@ -129,6 +108,5 @@ function keyFrameHTML(statName, statValue){
         to {width: ${statValue}%;}
     }
     `;
-
 }
 

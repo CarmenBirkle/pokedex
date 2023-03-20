@@ -13,6 +13,11 @@
     --charcoal: #2F4051;
   }
 
+html {
+    scroll-behavior: smooth;
+}
+  
+
 body {
     margin:0;
     background-color: var(--claucous);
@@ -143,11 +148,9 @@ p{
 
 
   .card {
-    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     background-color: var(--dark-gray);
-    /* margin: 10px; */
     margin-top: 10px;
     display: flex;
     justify-content: center;
@@ -156,8 +159,7 @@ p{
     cursor: pointer;
    
   }
-  
-  /* On mouse-over, add a deeper shadow */
+ 
   .card:hover {
     box-shadow: 0 8px 16px 0 rgba(230, 227, 227, 0.2);
   }
@@ -181,7 +183,6 @@ p{
     top: -7px;
   }
   
-  /* Add some padding inside the card container */
   .container {
     margin-top: -40px;
     padding-top: 40px;
@@ -274,28 +275,16 @@ p{
 }
 
 .poke-type{
-  /* background-color: greenyellow; */
   height: 40px;
   width: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* -webkit-box-shadow:0px 0px 8px 10px rgba(250,250,250,0.41);
-  -moz-box-shadow: 0px 0px 8px 10px rgba(250,250,250,0.41);
-  box-shadow: 0px 0px 8px 10px rgba(250,250,250,0.41); */
-
-  /* -webkit-box-shadow:0px 0px 8px 5px rgba(250,250,250,0.88);
--moz-box-shadow: 0px 0px 8px 5px rgba(250,250,250,0.88);
-box-shadow: 0px 0px 8px 5px rgba(250,250,250,0.88); */
-
--webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
--moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
-
-border: 3px solid var(--dark-gray);
-
+  -webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
+  -moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+  box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+  border: 3px solid var(--dark-gray);
 }
 
 .type-container > p {
@@ -312,13 +301,11 @@ border: 3px solid var(--dark-gray);
 .poke-type > svg{
     height: 30px;
     width: 30px;
-   
 }
-/* hier svg löschen wenn umgestellt */
+
 .poke-type > img{
   height: 30px;
   width: 30px;
- 
 }
 
 .pokemon-img{
@@ -355,10 +342,9 @@ border: 3px solid var(--dark-gray);
 
 .bar-fill {
   height: 100%;
-  /* background-color: red; */
   border-radius: 10px;
-  /* animation: fill-bar 2s ease-in-out forwards; */
 }
+
 #bar-attack{
   background-color: #E96479;
   animation: fill-bar-attack 2s ease-in-out forwards;
@@ -406,13 +392,6 @@ border: 3px solid var(--dark-gray);
   left: auto;
 }
 
-
-/* @keyframes fill-bar {
-  from {width: 0;}
-  to {width: 20%;}
-}  */
-
-
 #about{
   margin-top:8px;
 }
@@ -426,33 +405,30 @@ border: 3px solid var(--dark-gray);
 }
 
 
-/* ab hier innere Carte */
+/* Single Card Area */
 
 .overlay {
-  position: fixed; /* Sit on top of the page content */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed; 
+  width: 100%; 
+  height: 100%; 
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: var(--claucous);
   z-index: 2; 
-
 }
 
 .card-detail{
   position: absolute;
   top: 50%;
   left: 50%;
-  /* font-size: 50px; */
-  /* color: white; */
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 }
 
 .close{
-  width: 30px;
+    width: 30px;
     height: 30px;
     position: absolute;
     right: 8px;
@@ -506,8 +482,6 @@ border: 3px solid var(--dark-gray);
   position:absolute;
   left:29px;
   top:77px;
-
-  /* war left 27 und top 81 */
 }
 
 .poke-type-detail> svg{
@@ -515,7 +489,6 @@ border: 3px solid var(--dark-gray);
   width: 20px;
  
 }
-/* svg löschen wenn umgestellt */
 
 .poke-type-detail> img{
   height: 20px;
@@ -524,20 +497,16 @@ border: 3px solid var(--dark-gray);
 }
 
 .poke-type-detail{
-  /* background-color: #83c301; */
   height: 30px;
   width: 30px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-
   -webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
   -moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
   box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
-
   border: 3px solid var(--dark-gray);
-
 }
 
 .pokeball-background{
@@ -548,4 +517,26 @@ border: 3px solid var(--dark-gray);
       width: 70%;
       opacity: 0.08;
 }
+
+.top{
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 4px;
+    display:none;
+}
+
+.top:hover{
+  -webkit-box-shadow:0px 0px 8px 3px rgba(255,205,0,0.69);
+  -moz-box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+  box-shadow: 0px 0px 8px 3px rgba(255,205,0,0.69);
+}
+
+.button{
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
 

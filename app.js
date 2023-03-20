@@ -236,7 +236,6 @@ function openCard(id){
   scrollPosition = window.pageYOffset; // TODO: nochmas probieren - geht noch nicht auf allen Geräten WHY?
   showCard();
   loadSinglePokemon(id);
-  
 }
 
 function showCard(){
@@ -254,6 +253,11 @@ function closeByButton(){
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+function scrollToTop() {
+  window.scrollTo(0, 0);
 }
 
 
