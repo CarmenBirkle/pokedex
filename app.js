@@ -1,11 +1,14 @@
 let navbar = document.getElementById("navbar");
 let sticky = navbar.offsetTop;
 let currentPokemons = [];
+let responseToJson = [];
+let allPokemonData = [];
 let response;
 let singlePokemonResponse;
 let scrollPosition; 
 let offset = 0;
-const limit = 20;
+let limit = 20;
+// let loadedPokemons = 0;
 
 // windows behaviour and functions
 
@@ -14,7 +17,7 @@ window.onscroll = function() {stickyNavbar()};
 window.addEventListener('scroll', () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight - 5) {
-      loadPokemon();
+    loadPokemon();
   }
 });
 
@@ -26,50 +29,55 @@ function stickyNavbar() {
   }
 }
 
-// asyn functions to load data from api for all pokemons
-//TODO console log raus
-async function loadPokemon(){
-  let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-  response = await fetch(url);
-  // console.log(response);
-  let responseToJson = await response.json();
-  // console.log(responseToJson);
-  renderPokemoninfo(responseToJson); 
-  offset += limit; // increases offset (limit) by 20 
-}
-
-//gets the url for each pokemon and passes it to the function getSingelPokemonData for rendering
-async function renderPokemoninfo(responseToJson){ // async kann eigentlich raus oder ?
-    let results = responseToJson['results']
-    for (let i = 0; i < results.length; i++) {
-      const pokemon = results[i];
-      getSingelPokemonData(pokemon['url']);
-    }    
-}
-
-//TODO wichtig - nicht container.innerHTML = '' verwenden, sonst werden die ersten Pokemons wieder gelöscht
-// Vermute hier ist mein Fehler ? 
-async function getSingelPokemonData(url){
-  let singelURL = url;
-  let container = document.getElementById('main-content')
-  singlePokemonResponse = await fetch(singelURL);
-  let responseToJson = await singlePokemonResponse.json();
-  container.innerHTML += pokemonCard(responseToJson);
-  getType(responseToJson);
-  renderStats(responseToJson);
-}
-
-// finds the type for all cards and then calls a comparison for this type -> getTypeAllocation ( max.2 types)
-function getType(responseToJson){
-  let numTypesRendered = 0;
-  responseToJson['types'].forEach(element =>{
-    if (numTypesRendered < 2) { // Only render first 2 types
-      const typeValue = element.type.name;
-      getTypeAllocation(responseToJson['id'], typeValue);
-      numTypesRendered++;
+// main functions for loading pokemons 
+async function loadPokemon() {
+  let pokemonArray = [];
+  try {
+    for (let i = offset + 1; i <= limit; i++) {
+      let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+      let response = await fetch(url);
+      let data = await response.json();
+      pokemonArray.push(data);
     }
-  });
+    handlePokemonData(pokemonArray)
+  } catch (error) {
+    console.error(error);
+  }
 }
+
+function handlePokemonData(pokemonArray){
+  pokemonArray.sort((a, b) => a.id - b.id);
+    limit +=20;
+    renderCards(pokemonArray);
+    getType(pokemonArray);
+}
+
+
+function renderCards(pokemonArray){
+  let container = document.getElementById('main-content')
+  container.innerHTML ='';
+  for (let i = 0; i < pokemonArray.length; i++) {
+    container.innerHTML += pokemonCard(pokemonArray[i]);
+  }
+}
+
+ 
+// finds the type for all cards and then calls a comparison for this type -> getTypeAllocation ( max.2 types)
+
+function getType(pokemon) {
+  for (let i = 0; i < pokemon.length; i++) {
+    console.log(pokemon[i]['types']);
+    let numTypesRendered = 0;
+    pokemon[i]['types'].forEach(element => {
+      if (numTypesRendered < 2) { // Only render first 2 types
+        const typeValue = element.type.name;
+        getTypeAllocation(pokemon[i]['id'], typeValue);
+        numTypesRendered++;
+      }
+    });
+  }
+}
+
 
 //TODO - noch kürzen, ggf. else raus!
 //compares the given type with the values from typeAllocation and determines the matching colour and image (all Cards)
@@ -85,10 +93,10 @@ function getTypeAllocation(id, typeValue) {
         <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
       </div>
     `;
-  } else {
-    svgContainer.innerHTML = "Keine passende SVG-Datei gefunden."; // kann ggf. raus testen - ansonsten per Log ?
-  }
+  } 
 }
+
+//<< bis hier
 
 //compares and replaces the statistical data
 function renderStats(singelResponseToJson) {  
