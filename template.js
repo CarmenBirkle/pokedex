@@ -90,6 +90,17 @@ function pokemonDetailCard(singelPokemon){
 `;
 }
 
+function typesHTML(svgFileObj){
+    return `
+    <div class="type-container">
+    <div id="img-container" class="poke-type" style="background-color: ${svgFileObj.color}">
+      <img src="${svgFileObj.file}">
+    </div>
+    <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
+  </div>
+`;
+}
+
 function singleStatsHtml(statName, baseStat){
     return `
     <div class="bar-container">
@@ -99,6 +110,17 @@ function singleStatsHtml(statName, baseStat){
     </div>
   </div>
     `;
+}
+
+function singleTypesHTML(svgFileObj){
+    return `
+    <div class="type-container-detail">
+      <div class="poke-type-detail" style="background-color: ${svgFileObj.color}">
+        <img src="${svgFileObj.file}">
+      </div>
+      <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
+    </div>
+`;
 }
 
 function keyFrameHTML(statName, statValue){

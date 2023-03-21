@@ -8,9 +8,8 @@ let singlePokemonResponse;
 let scrollPosition; 
 let offset = 0;
 let limit = 20;
-// let loadedPokemons = 0;
 
-// windows behaviour and functions
+// <<-  windows behaviour and functions  -->
 
 window.onscroll = function() {stickyNavbar()};
 
@@ -29,7 +28,7 @@ function stickyNavbar() {
   }
 }
 
-// main functions for loading pokemons 
+// <--  main functions for loading pokemons -->
 async function loadPokemon() {
   let pokemonArray = [];
   try {
@@ -63,7 +62,6 @@ function renderCards(pokemonArray){
 
  
 // finds the type for all cards and then calls a comparison for this type -> getTypeAllocation ( max.2 types)
-
 function getType(pokemon) {
   for (let i = 0; i < pokemon.length; i++) {
     console.log(pokemon[i]['types']);
@@ -78,25 +76,14 @@ function getType(pokemon) {
   }
 }
 
-
-//TODO - noch kürzen, ggf. else raus!
 //compares the given type with the values from typeAllocation and determines the matching colour and image (all Cards)
 function getTypeAllocation(id, typeValue) {
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
   const svgContainer = document.getElementById("type"+id);
   if (svgFileObj) {
-    svgContainer.innerHTML += `
-      <div class="type-container">
-        <div id="img-container" class="poke-type" style="background-color: ${svgFileObj.color}">
-          <img src="${svgFileObj.file}">
-        </div>
-        <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
-      </div>
-    `;
+    svgContainer.innerHTML += typesHTML(svgFileObj);
   } 
 }
-
-//<< bis hier
 
 //compares and replaces the statistical data
 function renderStats(singelResponseToJson) {  
@@ -115,29 +102,26 @@ function renderStats(singelResponseToJson) {
   });
 }
 
+//<--  all single card view functions  -->
 
-// all single card view functions
-
-//TODO kürzen
 //Fetches the data of a specific pokemon for the single view
 async function loadSinglePokemon(id) {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
   let singelResponseToJson;
-
   try {
     const singleResponse = await fetch(url);
-
     if (!singleResponse.ok) {
       throw new Error(`Pokemon ${id} wurde nicht gefunden, hast Du Dich vielleicht verschrieben?`);
     }
-
-    singelResponseToJson = await singleResponse.json();
+   singelResponseToJson = await singleResponse.json();
   } catch (error) {
     alert(error.message);
-    console.error(error);
     return;
   }
+  singelPokemonData(singelResponseToJson)
+}
 
+function singelPokemonData(singelResponseToJson){
   renderSingelPokemonCard(singelResponseToJson);
   renderStats(singelResponseToJson);
   getDetailType(singelResponseToJson);
@@ -186,25 +170,13 @@ function getDetailType(responseToJson){
   });
 }
 
-//TODO - noch kürzen, ggf. else raus!
 //compares the given type with the values from typeAllocation and determines the matching colour and image
 function getDetailTypeAllocation(id, typeValue) {
   const svgFileObj = typeAllocation.find((obj) => obj.value === typeValue);
   const svgContainer = document.getElementById("type-detail"+id);
   if (svgFileObj) {
-    svgContainer.innerHTML += `
-        <div class="type-container-detail">
-          <div class="poke-type-detail" style="background-color: ${svgFileObj.color}">
-            <img src="${svgFileObj.file}">
-          </div>
-          
-          <p>${capitalizeFirstLetter(svgFileObj.value)}</p>
-
-        </div>
-    `;
-  } else {
-    svgContainer.innerHTML = "Keine passende SVG-Datei gefunden."; // kann ggf. raus testen - ansonsten per Log ?
-  }
+    svgContainer.innerHTML += singleTypesHTML(svgFileObj);
+  } 
 }
 
 //renders individual keyframes for the dynamic stat values
@@ -221,9 +193,7 @@ function renderKeyFramesforStats (singelResponseToJson) {
   document.getElementById('keyframe').innerHTML = keyFramesHTML;
 }
 
-
-
-// Helper-Functions
+//<--  Helper-Functions  -->
 
 //searches for the pokemon on the basis of the choosen number
 function searchByNumber(){
@@ -241,7 +211,7 @@ function searchByName(){
 }
 
 function openCard(id){
-  scrollPosition = window.pageYOffset; // TODO: nochmas probieren - geht noch nicht auf allen Geräten WHY?
+  scrollPosition = window.pageYOffset; 
   showCard();
   loadSinglePokemon(id);
 }
@@ -253,7 +223,7 @@ function showCard(){
 }
 
 function closeByButton(){
-  window.scrollTo(0, scrollPosition); //  TODO: nochmas probieren - geht noch nicht auf allen Geräten WHY? 
+  window.scrollTo(0, scrollPosition); 
   document.getElementById('overlay').classList.add("d-none");
   document.getElementById('main-content').classList.remove("d-none");
   document.getElementById('header').classList.remove("d-none");  
@@ -262,7 +232,6 @@ function closeByButton(){
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 
 function scrollToTop() {
   window.scrollTo(0, 0);
